@@ -48,7 +48,16 @@ body{
 	opacity: 0.0;
 }
 
+#recent{
+	opacity: 0.0;
+}
+
 #sidetitle{
 	color: black;
 	text-align: center;
 }
+
+.tcss{
+	color: black;
+}
+

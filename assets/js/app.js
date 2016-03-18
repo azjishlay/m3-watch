@@ -73,6 +73,7 @@ $("#search").click(function search(){
       div.append(spanNumber).append(header).append(contentByline).append(contentSection).append(contentDate).append(contentLink);
 
       $('#results').append(div);
+      $('#recent').animate({opacity: 0.85});
 
     }
 
@@ -140,7 +141,7 @@ $("#search").click(function search(){
     ARRR.on("child_added", function(snapshot){
 
     	var newRow = snapshot.val();
-    	var search = newRow.searchTerm;
+    	var search = newRow.searchterm;
     	var start = newRow.startYear;
     	var end = newRow.endYear;
 
