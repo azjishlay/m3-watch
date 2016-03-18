@@ -1,0 +1,54 @@
+.body_content{
+	margin-top:150px;
+}
+
+.jumbotron{
+	opacity:0.65;
+	margin-top:150px;
+}
+
+.input-field label{
+	color: white;
+}
+
+.input-field input[type=text]:focus {
+     border-bottom: 1px solid white;
+     box-shadow: 0 1px 0 0 #fff;
+   }
+
+.content{
+	background-color:white;
+	color: teal;
+}
+
+body{
+	background:
+	linear-gradient(
+		rgba(66,189,185,0.45),
+		rgba(66,189,185,0.45)
+	),
+	url(training.jpg);
+	background-size:cover;
+	background-position-x: center;
+	color:white;
+}
+
+.artwell{
+	opacity:0.85;
+	border-width: 1px;
+	border-color: #4489BC;
+}
+
+.nytext{
+	color: black;
+	text-align: center;
+}
+
+#sidebar{
+	opacity: 0.0;
+}
+
+#sidetitle{
+	color: black;
+	text-align: center;
+}

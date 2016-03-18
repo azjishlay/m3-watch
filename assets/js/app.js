@@ -1,15 +1,13 @@
 $(document).ready(function(){
 
-$("#searchButton").click(function search(){
+$("#search").click(function search(){
 	
-	var searchTerm = $("#searchterm").val();
-	var searchTerm = "BMW";
-	// var searchTerm = $("#newSearch").val();
+	  var searchTerm = $("#searchterm").val();
     var searchTermCall = "q=" + searchTerm;
 
     var limit = $("#limit").val();
 
-    var startYear = $("#startyr").val();
+    var startYear = $("#startYear").val();
     var startYear = "1994";
     var startYearCall = "&begin_date=" + startYear + "0000";
 
@@ -17,7 +15,7 @@ $("#searchButton").click(function search(){
     //var endMonth = 03;
     var endYearCall = "&end_date=" + endYear + "0000";
 
-    // recent(searchTerm, startYear, endYear);
+    recent(searchTerm, startYear, endYear);
 
     if (startYear == "") {
       startYearCall = "";
@@ -37,32 +35,55 @@ $("#searchButton").click(function search(){
     var urlBase = "http://api.nytimes.com/svc/search/v2/articlesearch.json?";
     var urlFinal = urlBase + searchTermCall + startYearCall + endYearCall + keyCall;
 
-
+    var result = {
+      number: "",
+      headline: "",
+      byline: "",
+      section: "",
+      date: "",
+      link: ""
+    }
+    
+    var keyarr = [];
+    
     function displayResult() {
-      var div = $('<div>');
+      
+      var div = $("<div class='well artwell'>");
+      var keydiv = $("<div class='well artwell'>");
 
       var spanNumber = $('<span>');
       spanNumber.addClass('label label-primary');
       spanNumber.text(result.number);
 
-      var header = $('<h3>');
+      var header = $("<h3 class='nytext'>");
       header.text(result.headline);
 
-      var contentByline = $('<p>');
+      var contentByline = $("<p class='nytext'>");
       contentByline.text(result.byline);
 
-      var contentSection = $('<p>');
+      var contentSection = $("<p class='nytext'>");
       contentSection.text(result.section);
 
-      var contentDate = $('<p>');
+      var contentDate = $("<p class='nytext'>");
       contentDate.text(result.date);
 
-      var contentLink = $('<p>');
+      var contentLink = $("<p class='nytext'>");
       contentLink.text(result.link)
 
       div.append(spanNumber).append(header).append(contentByline).append(contentSection).append(contentDate).append(contentLink);
 
-      $('.results').append(div);
+      $('#results').append(div);
+
+    }
+
+    function displayKey() {
+
+      var contentKeyword = $("<h4 class='nytext'>");
+      contentKeyword.text(keyarr.toString());
+
+      $('#sidebar').animate({opacity: 0.85});
+      $('#sidebar').append(contentKeyword);
+
     }
 
     function apiCall() {
@@ -70,7 +91,9 @@ $("#searchButton").click(function search(){
       $.ajax({url: urlFinal, method: 'GET'}).done(function(response) {
 
         console.log(urlFinal);
+        console.log(response);
 
+        limit = 5; 
           for (var i = 0; i < limit; i++) {
 
             result.number = i + 1;
@@ -91,29 +114,38 @@ $("#searchButton").click(function search(){
             result.link = response.response.docs[i].web_url;
             console.log(result.link);
 
+            for (var j = 0; j < response.response.docs[i].keywords.length; j++) {
+              
+              result.keyword = response.response.docs[i].keywords[j].value;
+              console.log(result.keyword);
+              keyarr.push(result.keyword);
+              console.log(keyarr);
+
+            }
             displayResult();
           }
+          displayKey();
       });
     }
 
     apiCall();
 });
 
-    // var ARRR = new Firebase("");
+    var ARRR = new Firebase("group-finance.firebaseIO.com");
 
-    // function recent(var1, var2, var3){
-    // 	ARRR.push({searchterm: var1, startYear: var2, endYear: var3})
-    // }
+    function recent(var1, var2, var3){
+    	ARRR.push({searchterm: var1, startYear: var2, endYear: var3})
+    }
 
-    // ARRR.on("child_added", function(snapshot){
+    ARRR.on("child_added", function(snapshot){
 
-    // 	var newRow = snapshot.val();
-    // 	var search = newRow.searchTerm;
-    // 	var start = newRow.startYear;
-    // 	var end = newRow.endYear;
+    	var newRow = snapshot.val();
+    	var search = newRow.searchTerm;
+    	var start = newRow.startYear;
+    	var end = newRow.endYear;
 
-    // 	$("#searchTable").append("<tr class='clickable-row' ><td id='newSearch'>" + search + "</td><td>" + start + "</td><td>" + end + "</td></tr>")
-    // });
+    	$("#searchTable").append("<tr class='clickable-row' ><td id='newSearch'>" + search + "</td><td>" + start + "</td><td>" + end + "</td></tr>")
+    });
 
 $(".clickable-row").click(function() {
 	search();
