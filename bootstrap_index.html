@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--Bootstrap-->
+	<link rel="stylesheet" href="assets/css/bootstrap.css">
+
+	<!-- Style.css -->
+	<link rel="stylesheet" href="assets/css/style.css">
+	
+	<!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	<!--jQuery-->
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+
+	<!-- Firebase -->
+	<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+
+	<title>Bootstrap Test</title>
+</head>
+<body>
+<div class="container">
+<div class="jumbotron">
+	<div class="header_img" href="assets/images/training.jpg">
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3">
+			<h1 class="text-center">Company Lookup</h1>
+		</div>
+		<div class="col-lg-3"></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<p class="text-center">Get financial news and market data about any company.</p>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-2">
+			<div class="input-group">
+  				<span class="glyphicon glyphicon-search input-group-addon" id="basic-addon1"></span>
+  					<input id="searchterm" type="text" class="form-control" placeholder="Volkswagen" aria-describedby="basic-addon1">
+  			</div>
+  		</div>
+  		<div class="col-lg-3">
+  			<button id="search" class="btn btn-default" type="submit">Find</button>
+		</div>
+	</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-4">
+		<div class="well artwell" id="sidebar">
+			<h1 id="sidetitle" >Keywords</h1>
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<div id="results"></div>
+	</div>
+</div>
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/app.js"></script>
+
+
+</body>
+</html>
