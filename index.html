@@ -1,9 +1,144 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+
+  <!-- Let browser know website is optimized for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+  <!-- ### Import Materialize -->
+
+  <!-- Import Google Icon Font -->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+  <!-- ### -->
+
+  <!-- Import style.css -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Import Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+
+  <title>Company Lookup</title>
+
 </head>
 <body>
 
+  <!-- Landing Page -->
+
+  <div class="teal darken-3 z-depth-1 land_content">
+    
+    <!-- Header -->
+    <div class="header row col s12">
+      <h1 class="center-align">Market Watch</h1>
+      <p class="center-align">Get financial news and market data about any company.</p>
+    </div> 
+
+    <!-- Search Bar -->
+      <nav>
+        <div class="nav-wrapper teal darken-1">
+            <form id="searchbar" action="javascript:void(0);">
+              <div class="input-field">
+                  <input id="search" type="search" placeholder="Search" required>
+                  <label for="search"><i class="material-icons">search</i></label>
+              </div>
+            </form>
+        </div>
+      </nav>
+
+  </div>
+
+  <!-- Search Results -->
+
+  <div class="main-content">
+    <div class="row">
+      <div class="col s12 m12 l12">
+
+        <!-- Sidebar ### KEEP ON TOP -->
+
+        <div class="sidebar">
+
+          <!-- Stock Info -->
+
+          <div class="card stock-card">
+            <div class="card-content">
+
+              <span class="card-title truncate" id="stockName"> </span>
+
+              <p>
+                <span id="stockSymbol"></span> 
+                <span id="stockTimestamp"></span>
+              </p>
+
+              <p>
+                <span id="stockPrice"></span> 
+                <span id="stockArrow"></span>
+                <span id="stockChange"></span> 
+                <span id="stockChangePercent"></span>
+              </p>
+
+            </div>
+          </div>
+
+          <!-- Keywords -->
+
+          <div class="card keywords-card">
+            <div class="card-content">
+
+              <span class="card-title">Keywords</span>
+
+            </div>
+            <div class="card-action">
+
+              <div id="keywords">
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="results">
+
+          <!-- Call Status -->
+
+          <h3 id="status"></h3>
+          <span id="for"></span> <span id="query"></span>
+
+          <!-- Articles -->
+
+          <div id="articles">
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+
+        <!-- Recent searches -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Import jQuery before materialize.js -->
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+
+  <!-- Import JS Moment -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+
+  <!-- Import JS Moment Timezone -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.2/moment-timezone-with-data.min.js"></script>
+
+  <!-- ### Materialize -->
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  
+  <script src="assets/js/nyt.js"></script>
+  <script src="assets/js/stocks.js"></script>
+  <script src="assets/js/app.js"></script>
+  
 </body>
 </html>
