@@ -35,85 +35,77 @@ function getArticles() {
 
     for (var i = 0; i < limit; i++) {
 
-      article.headline = response.response.docs[i].headline.main;
-      // console.log(article.headline);
+      // check to see if article data exists in the response object
+      var entireArticle = response.response.docs[i];
+      if(entireArticle == null || entireArticle == undefined){
+        article = {
+          headline: "",
+          byline: "",
+          preview: "",
+          date: "",
+          link: ""
+        };
+      }else{
 
-      var bylineCheck = response.response.docs[i].byline;
-      // console.log(bylineCheck);
-      
-      if(bylineCheck == null){
-        article.byline="";
-      }else if(bylineCheck !== null){
-        article.byline = response.response.docs[i].byline.original;
+        // headline and byline checks to see if content exists in the object
+        var headlineCheck = response.response.docs[i].headline;
+        // console.log(headlineCheck);
+
+        var bylineCheck = response.response.docs[i].byline;
+        // console.log(bylineCheck);
+
+        if(headlineCheck == null){
+          article.headline = "";
+        }else{
+          article.headline = response.response.docs[i].headline.main;
+          // console.log(article.headline);
+        }
+        
+        if(bylineCheck == null){
+          article.byline = "";
+        }else if(bylineCheck !== null){
+          article.byline = response.response.docs[i].byline.original;
+          // console.log(article.byline);
+        }
+        
+        article.preview = response.response.docs[i].snippet;
+        // console.log("preview: " + article.preview);
+
+        article.datebef = response.response.docs[i].pub_date;
+        article.date = moment(article.datebef).format('MMMM D, YYYY');
+        // console.log(article.date);
+
+        article.link = response.response.docs[i].web_url;
+        // console.log(article.link);
+
+        // Compiling keywords
+        for (var j = 0; j < response.response.docs[i].keywords.length; j++) {
+
+          var keyword = response.response.docs[i].keywords[j].value;
+          // console.log(keyword);
+
+          keyArr.push(keyword);
+
+          // Check if existing keyword
+          $.each(keyArr, function(i, el) {
+            if ($.inArray(el, keyUniqueArr) === -1) {
+              keyUniqueArr.push(el);
+            }
+          });
+        };
+
+        // Append articles to div  
+        displayArticles();
       }
-      
-      //console.log(article.byline);
 
-      article.preview = response.response.docs[i].snippet;
-      // console.log("preview: " + article.preview);
-
-      article.datebef = response.response.docs[i].pub_date;
-      article.date = moment(article.datebef).format('MMMM D, YYYY');
-      // console.log(article.date);
-
-      article.link = response.response.docs[i].web_url;
-      // console.log(article.link);
-
-      // Compiling keywords
-      for (var j = 0; j < response.response.docs[i].keywords.length; j++) {
-
-        var keyword = response.response.docs[i].keywords[j].value;
-        // console.log(keyword);
-
-        keyArr.push(keyword);
-
-        // Check if existing keyword
-        $.each(keyArr, function(i, el) {
-          if ($.inArray(el, keyUniqueArr) === -1) {
-            keyUniqueArr.push(el);
-          }
-        });
-      };
-      // Append articles to div  
-      displayArticles();
     };
     // Append keywords to div
     console.log(keyUniqueArr);
     displayKeywords();
   });
+  $(".bro").empty();
+  firebase();
 };
-
-// var ARRR = new Firebase("group-finance.firebaseIO.com");
-
-// function recent(var1, var2, var3){
-// 	ARRR.push({searchterm: var1, startYear: var2, endYear: var3})
-// }
-
-//   var recentcard = $("<div class='card article-card z-depth-3'>");
-//   var recenttitle = $("<span class='card-title keytitle'> Recent Searches </span>");
-//   var recentinside = $("<div class='card-content black-text rectext'>");
-//   recentinside.append(recenttitle);
-
-// ARRR.on("child_added", function(snapshot){
-// function test() {
-//   alert("Yoo");
-// }
-// 	var info = snapshot.val();
-// 	var search = "<a href='javascript:void(0)' onclick='test()'>" + info.searchterm + "</a>";
-
-//   recentinside.append("<br>" + search);
-//   recentcard.append(recentinside);
-//   $("#recent").append(recentcard);
-// });
-
-// $(".clickable-row").click(function() {
-// 	search();
-// });
-
-// $("#ClearButton").click(function(){
-// 	$(".results").empty();  
-// });
-
 
 function displayArticles() {
   var div = $('<div>').addClass('card article-card');
@@ -123,8 +115,8 @@ function displayArticles() {
   var contentHeadline = $('<span>').addClass('card-title');
   contentHeadline.text(article.headline);
 
-  var contentByline = $('<p>').addClass('article-author');
-  contentByline.text(article.byline);
+  var contentByline = $('<p>').addClass('article-byline');
+  contentByline.text(article.byline); 
 
   var contentSection = $('<p>').addClass('article-text');
   contentSection.text(article.preview);
@@ -144,6 +136,8 @@ function displayArticles() {
   divaction.append(contentLink);
 
   $('#articles').append(div);
+  $('.article-card').animate({opacity: 0.95}, 500);
+  $('.page-footer').animate({opacity: 1.0}, 500);
 };
 
 function displayKeywords() {
@@ -156,3 +150,9 @@ function displayKeywords() {
     };
   };
 };
+
+$(document).ready(function(){
+  $('.collapsible').collapsible({
+    accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+  });
+});
