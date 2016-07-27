@@ -19,7 +19,7 @@ function getArticles() {
   var sortCall = "&sort=newest";
   var keyCall = "&api-key=1f7c7f95b1c4310e875bb121e74ccb33:15:74629295";
 
-  var urlBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+  var urlBase = "http://api.nytimes.com/svc/search/v2/articlesearch.json?";
   var urlFinal = urlBase + searchTermCall + sortCall + keyCall;
 
   // Clear keyword arrays

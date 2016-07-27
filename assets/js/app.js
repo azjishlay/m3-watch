@@ -2,8 +2,9 @@ $(document).ready(function(){
 
 	$(document).keyup(function(event) {
 		if(event.keyCode == 13){
+			var term = $('#search').val().trim();
 			fixed();
-			search();
+			search(term);
 		}
 	});
   // Change placeholder text on resize
@@ -32,14 +33,13 @@ $(document).ready(function(){
 
 //   // Run initial api calls
 
-// 	document.getElementById("searchbar").onsubmit = function() {
+	// document.getElementById("searchbar").onsubmit = function() {
 
-//     var searchterm = $('#search').val().trim();
+ //    var searchterm = $('#search').val().trim();
 
-// 		fixed();
-// 		search(searchterm);
-// 	};
-// >>>>>>> master
+	// 	fixed();
+	// 	search(searchterm);
+	// };
 
 	function fixed() {
 		// console.log("Move search bar to top");
